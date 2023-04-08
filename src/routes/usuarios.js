@@ -76,9 +76,10 @@ router.post("/login",(req,res)=>{
     const {correo,pwd}=req.body;
 
     usuarios.findOne({correo: correo, pwd: pwd})
+    .populate('nombreTipoUser')
     .then((data)=>{
         if(data){
-            res.json({message: "Inicio de sesión exitoso!"})
+            res.json({message: "Inicio de sesión exitoso!", usuario: data})
         } else {
             res.status(401).json({message: "Correo o contraseña incorrectos."})
         }
