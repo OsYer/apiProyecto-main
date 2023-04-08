@@ -86,5 +86,25 @@ router.post("/login",(req,res)=>{
     .catch((error)=>res.json({message:error}));
 });
 
+///loginadmin
+router.post("/logina",(req,res)=>{
+    const {correo, pwd} = req.body;
+
+    usuarios.findOne({correo: correo, pwd: pwd})
+    .populate('nombreTipoUser')
+    .then((data)=>{
+        if(data){
+            if(data.nombreTipoUser._id.toString() === "642b4184d270aa4a64ba286b"){
+                res.json({message: "Inicio de sesión exitoso!", usuario: data})
+            } else {
+                res.status(401).json({message: "No tienes permisos de administrador."})
+            }
+        } else {
+            res.status(401).json({message: "Correo o contraseña incorrectos."})
+        }
+    })
+    .catch((error)=>res.json({message:error}));
+});
+
 //exportar
 module.exports = router ;
