@@ -1,0 +1,95 @@
+###
+POST http://192.168.0.100:9000/api/usuarios HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombre":"Alan",
+    "apellidopa":"Martinez",
+    "apellidoma":"Hernhandez",
+    "correo":"artinz@gmail.com",
+    "pwd":"alande12345",
+    "telefono":"9323765430",
+    "nombreTipoUser":"642b4184d270aa4a64ba286b"
+}
+
+###
+GET http://192.168.0.100:9000/api/usuarios HTTP/1.1
+
+
+
+
+//-----------FIN DE COLECCION DE USUARIOS-------------------//
+
+###
+POST http://192.168.137.1:9000/api/categorias HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombreCategoria":"Crema"
+}
+
+###
+GET http://192.168.0.100:9000/api/categorias HTTP/1.1
+
+//------- FIN DE COLECCION DE CATEGORIAS-------------------//
+
+
+###
+POST http://192.168.0.100:9000/api/presentacion HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombrePresentacion":"Botella"
+}
+
+###
+GET http://192.168.0.100:9000/api/presentacion HTTP/1.1
+
+//------- FIN DE LA COLECCION DE PRESENTACION------------///
+
+###
+POST http://192.168.0.100:9000/api/preguntas HTTP/1.1
+Content-Type: application/json
+
+{
+    "preg":"¿nombre de tu enamorada - enamorado?"
+}
+
+###
+GET http://192.168.0.100:9000/api/preguntas HTTP/1.1
+
+//----------FIN DE LA COLECCION DE PREGUNTAS--------------------------//
+
+
+###
+POST http://192.168.0.100:9000/api/productos HTTP/1.1
+Content-Type: application/json
+
+{
+    "nombreProducto":"Homps",
+    "descripcion":"hecho a base de Manzanilla",
+    "precio":20.50,
+    "disponibilidad":10,
+    "nombreCategoria":"642a4a5908507d01b3b81ecb",
+    "nombrePresentacion":"642c49d7cbcc012cbd1241fa"
+}
+
+###
+GET http://192.168.0.100:9000/api/productos HTTP/1.1
+
+//---------FIN DE LA COLECCION DE PRODUCTOS-------------------///
+
+###
+GET http://192.168.0.100:9000/api/respuestas HTTP/1.1
+
+###
+POST http://192.168.0.100:9000/api/respuestas HTTP/1.1
+Content-Type: application/json
+
+{  
+    "preg":"642c4d44cbcc012cbd1241fc",
+    "resp":"ponyy"
+}
+
+###
+GET http://192.168.0.100:9000/api/tipousuarios HTTP/1.1
