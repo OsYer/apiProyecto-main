@@ -1,6 +1,7 @@
 const express = require ("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const cors = require('cors');
 
 //se agregan los enlaces de rutas de la carpeta ROUTERS
 const  categorias =  require("./src/routes/categorias");
@@ -29,7 +30,13 @@ app.use("/api", respuestas);
 app.get("/",(req,res)=>{
     res.send("Bienvenido a mi API");
 }); 
-
+app.use(cors());
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    next();
+  });
 //conectarse a la base de datos de mongo\
 mongoose.connect("mongodb+srv://WasakaBegein:wasakabegein@clusteralan.rnfab7j.mongodb.net/ProyectoFinal?retryWrites=true&w=majority")
         .then(()=> console.log("Conectado a la Base de Datos MongoDB"))
