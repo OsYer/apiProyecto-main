@@ -1,6 +1,7 @@
 const express = require ("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
+const cors = require('cors');
 
 //se agregan los enlaces de rutas de la carpeta ROUTERS
 const  categorias =  require("./src/routes/categorias");
