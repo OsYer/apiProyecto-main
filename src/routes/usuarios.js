@@ -56,6 +56,20 @@ router.delete('/usuarios/:id',(req,res)=>{
     .then((data)=>res.json(data))
     .catch((error)=>res.json({message:error}));
 });
+//iniciar sesión
+router.post("/login",(req,res)=>{
+    const {correo,pwd}=req.body;
+
+    usuarios.findOne({correo: correo, pwd: pwd})
+    .then((data)=>{
+        if(data){
+            res.json({message: "Inicio de sesión exitoso!"})
+        } else {
+            res.status(401).json({message: "Correo o contraseña incorrectos."})
+        }
+    })
+    .catch((error)=>res.json({message:error}));
+});
 
 
 //exportar
