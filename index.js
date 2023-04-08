@@ -1,7 +1,6 @@
 const express = require ("express");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const cors = require('cors');
 
 //se agregan los enlaces de rutas de la carpeta ROUTERS
 const  categorias =  require("./src/routes/categorias");
@@ -17,6 +16,7 @@ const app = express();
 const port = process.env.PORT || 9000;
 
 //middle
+app.use(cors());
 app.use(express.json());
 app.use("/api", categorias);
 app.use("/api", preguntas);
