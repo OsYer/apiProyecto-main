@@ -87,24 +87,30 @@ router.post("/login",(req,res)=>{
 });
 
 ///loginadmin
-router.post("/logina",(req,res)=>{
-    const {correo, pwd} = req.body;
+router.post('/loginad', async (req, res) => {
+  const { correo, pwd } = req.body;
 
-    usuarios.findOne({correo: correo, pwd: pwd})
-    .populate('nombreTipoUser')
-    .then((data)=>{
-        if(data){
-            if(data.nombreTipoUser._id.toString() === "642b4184d270aa4a64ba286b"){
-                res.json({message: "Inicio de sesión exitoso!", usuario: data})
-            } else {
-                res.status(401).json({message: "No tienes permisos de administrador."})
-            }
-        } else {
-            res.status(401).json({message: "Correo o contraseña incorrectos."})
-        }
-    })
-    .catch((error)=>res.json({message:error}));
+  try {
+    const user = await User.findOne({
+      correo,
+      nombreTipoUser: {
+        $elemMatch: { _id: '642b4184d270aa4a64ba286b' },
+      },
+    });
+    if (!user) {
+      return res.status(401).json({ error: 'Correo o contraseña incorrectos' });
+    }
+
+    const isMatch = user.pwd === pwd;
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Correo o contraseña incorrectos' });
+    }
+
+    res.json({ message: 'Autenticación exitosa' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
 });
-
 //exportar
 module.exports = router ;
