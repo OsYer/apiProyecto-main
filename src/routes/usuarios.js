@@ -86,7 +86,8 @@ router.post("/login",(req,res)=>{
     .catch((error)=>res.json({message:error}));
 });
 
-///loginadminapp.post("/loginad", (req, res) => {
+///loginadmin
+router.post("/loginad", (req, res) => {
   const { correo, pwd } = req.body;
   User.findOne({ correo }, (err, user) => {
     if (err) {
