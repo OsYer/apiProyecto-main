@@ -87,30 +87,19 @@ router.post("/login",(req,res)=>{
 });
 
 ///loginadmin
-router.post('/loginad', async (req, res) => {
+app.post("/api/loginad", async (req, res) => {
   const { correo, pwd } = req.body;
-
-  try {
-    const user = await User.findOne({
-      correo,
-      nombreTipoUser: {
-        $elemMatch: { _id: '642b4184d270aa4a64ba286b' },
-      },
-    });
-    if (!user) {
-      return res.status(401).json({ error: 'Correo o contraseña incorrectos' });
-    }
-
-    const isMatch = user.pwd === pwd;
-    if (!isMatch) {
-      return res.status(401).json({ error: 'Correo o contraseña incorrectos' });
-    }
-
-    res.json({ message: 'Autenticación exitosa' });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+  const user = await User.findOne({ correo });
+  if (!user) {
+    return res.json({ error: "Correo o contraseña incorrectos" });
   }
+  const pwdMatches = await bcrypt.compare(pwd, user.pwd);
+  if (!pwdMatches) {
+    return res.json({ error: "Correo o contraseña incorrectos" });
+  }
+  // Agrega el tipo de usuario a la respuesta
+  res.json({ tipoUsuario: user.tipoUsuario });
 });
+
 //exportar
 module.exports = router ;
