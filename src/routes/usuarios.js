@@ -65,7 +65,7 @@ router.post("/login",(req,res)=>{
         if(data){
             res.json({message: "Inicio de sesión exitoso!"})
         } else {
-            res.status(401).json({message: "Correo o contraseña incorrectos."})
+            res.status(401.1).json({message: "Correo o contraseña incorrectos."})
         }
     })
     .catch((error)=>res.json({message:error}));
