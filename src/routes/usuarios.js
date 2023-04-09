@@ -87,7 +87,7 @@ router.post("/login",(req,res)=>{
 });
 
 ///loginadmin
-app.post("/api/loginad", async (req, res) => {
+app.post("/loginad", async (req, res) => {
   const { correo, pwd } = req.body;
   const user = await User.findOne({ correo });
   if (!user) {
