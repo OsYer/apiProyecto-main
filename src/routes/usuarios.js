@@ -93,8 +93,7 @@ app.post("/loginad", async (req, res) => {
   if (!user) {
     return res.json({ error: "Correo o contraseña incorrectos" });
   }
-  const pwdMatches = await bcrypt.compare(pwd, user.pwd);
-  if (!pwdMatches) {
+  if (pwd !== user.pwd) {
     return res.json({ error: "Correo o contraseña incorrectos" });
   }
   // Agrega el tipo de usuario a la respuesta
