@@ -94,7 +94,7 @@ router.get("/clientes", (req, res) => {
         (usuario) => usuario.nombreTipoUser.nombreTipoUser === "Cliente"
       );
       const clientesSimplificados = clientes.map(
-        (cliente) => cliente.nombre + " " + cliente.apellidopa
+        (cliente) => cliente.nombre + " " + cliente.apellidoPa
       );
       res.json(clientesSimplificados);
     })
