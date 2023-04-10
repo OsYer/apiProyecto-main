@@ -85,25 +85,5 @@ router.post("/login",(req,res)=>{
     })
     .catch((error)=>res.json({message:error}));
 });
-
-///loginadmin
-router.post("/loginad", (req, res) => {
-  const { correo, pwd } = req.body;
-  User.findOne({ correo }, (err, user) => {
-    if (err) {
-      console.error(err);
-      return res.json({ error: "Hubo un error al procesar la solicitud. Por favor, intenta de nuevo más tarde." });
-    }
-    if (!user) {
-      return res.json({ error: "Correo o contraseña incorrectos" });
-    }
-    if (pwd !== user.pwd) {
-      return res.json({ error: "Correo o contraseña incorrectos" });
-    }
-    // Agrega el tipo de usuario a la respuesta
-    res.json({ tipoUsuario: user.tipoUsuario });
-  });
-});
-
 //exportar
 module.exports = router ;
