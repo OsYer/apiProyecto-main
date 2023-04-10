@@ -103,6 +103,33 @@ router.get("/clientes", (req, res) => {
       res.status(500).json({ message: "Hubo un error en el servidor" });
     });
 });
+//consultar usuarios
+router.get('/usuarios',(req,res)=>{
+    usuarios.aggregate([
+        {
+            $lookup:{
+                from:'tipousuarios',
+                localField:'nombreTipoUser',
+                foreignField:'_id',
+                as:'nombreTipoUser'
+            }
+        },
+        {
+            $project:{
+                _id: 1,
+                nombre: 1,
+                apellidopa: 1,
+                apellidoma: 1,
+                correo: 1,
+                pwd: 1,
+                telefono: 1,
+                nombreTipoUser: { $arrayElemAt: [ "$nombreTipoUser.nombre", 0 ] }
+            }
+        }
+    ])
+    .then((data)=>res.json(data))
+    .catch((error)=>res.json({message:error}));
+});
 
 //exportar
 module.exports = router ;
