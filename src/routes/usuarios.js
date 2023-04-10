@@ -85,22 +85,23 @@ router.post("/login",(req,res)=>{
     })
     .catch((error)=>res.json({message:error}));
 });
-router.get("/clientes", async (req, res) => {
-  try {
-    const usuarios = await Usuarios.find({
-      nombreTipoUser: "642b4197d270aa4a64ba286d",
-    }).populate("nombreTipoUser");
-    const clientes = usuarios.filter(
-      (usuario) => usuario.nombreTipoUser.nombreTipoUser === "Cliente"
-    );
-    const clientesSimplificados = clientes.map(
-      (cliente) => cliente.nombre + " " + cliente.apellidopa
-    );
-    res.json(clientesSimplificados);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Hubo un error en el servidor" });
-  }
+
+router.get("/clientes", (req, res) => {
+  Usuarios.find({ nombreTipoUser: "642b4197d270aa4a64ba286d" })
+    .populate("nombreTipoUser")
+    .then((usuarios) => {
+      const clientes = usuarios.filter(
+        (usuario) => usuario.nombreTipoUser.nombreTipoUser === "Cliente"
+      );
+      const clientesSimplificados = clientes.map(
+        (cliente) => cliente.nombre + " " + cliente.apellidopa
+      );
+      res.json(clientesSimplificados);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ message: "Hubo un error en el servidor" });
+    });
 });
 
 //exportar
