@@ -21,6 +21,24 @@ router.post("/usuarios",(req,res)=>{
                 .then((data)=> res.json(data))
                 .catch((error)=>res.json({message:error}));
 });
+///user adminn
+router.post("/usuarioad",(req,res)=>{
+    const {nombre,apellidopa,apellidoma,correo,pwd,telefono,nombreTipoUser}=req.body;
+
+    const user=new usuarios({
+        nombre:nombre,
+        apellidopa:apellidopa,
+        apellidoma:apellidoma,
+        correo:correo,
+        pwd:pwd,
+        telefono:telefono,
+        nombreTipoUser:'642b4184d270aa4a64ba286bs'
+    });
+
+    user.save()
+    .then((data)=> res.json(data))
+    .catch((error)=>res.json({message:error}));
+});
 
 //consultar
 router.get('/usuarios',(req,res)=>{
